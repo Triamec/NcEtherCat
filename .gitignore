@@ -24,3 +24,4 @@ _CompileInfo/
 _Libraries/
 _ModuleInstall/
 /.vs/NCEtherCAT/v15/*.suo
+/NCEtherCAT/.vs/NCEtherCAT/v15/*.suo
