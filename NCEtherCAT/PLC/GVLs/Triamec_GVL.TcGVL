@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <GVL Name="Triamec_GVL" Id="{9fa36e55-75a2-4d18-b836-205a9db077ea}">
+    <Declaration><![CDATA[
+VAR_GLOBAL
+	gEnableAxes			: BOOL;	(* variable to enable all axes *)
+	gStatusAxesEnabled 	: BOOL;	(* variable indicates that all axes enabled *)
+	gHoming				: BOOL; (* variable to execute drive controlled homing *)	
+END_VAR]]></Declaration>
+  </GVL>
+</TcPlcObject>

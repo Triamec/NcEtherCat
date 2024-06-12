@@ -1,0 +1,193 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="DriveControlledHoming" Id="{9a76f1b6-86a4-4c61-9e01-639c278c0362}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK DriveControlledHoming
+VAR_IN_OUT
+	axis 		: TE_AxisBase0;
+	axisRef 	: AXIS_REF;
+END_VAR
+VAR_INPUT
+	execute 	: BOOL;
+	refPos		: LREAL;
+END_VAR
+VAR_OUTPUT
+	error 		: BOOL;
+	done		: BOOL;
+END_VAR
+VAR
+	writeReg	: TE_RegisterWriteInt32;
+	ncOpMode	: MC_WriteDriveOperationMode;
+	ncHome		: MC_Home;
+	ncReset		: MC_Reset;
+	writeRef	: TE_RegisterWriteFloat64;
+	driveStatus : NCTOPLC_AXIS_REF_STATE2;
+	timeout     : INT := 0;
+	state		: INT := 0;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[// Sample code for drive controlled homing of an axis
+// configure homing in the TAM System Explorer using registers Axes[].Parameters.Homing
+// Refer to application note AN141 Homing Procedures and Setup
+// Use the standard mode of operation HM=6 of the EtherCAT CoE standard
+// or the following sample code, which overcomes NC position reset after homing
+
+driveStatus := axisRef.NcToPlc.StateDWord2;
+
+CASE state OF
+	0:  // Idle
+		done	:= FALSE;
+		error	:= FALSE;
+		IF execute THEN
+			writeRef(axis:=axis, execute := FALSE);
+			timeout := 0;
+			state := state + 10;
+		END_IF
+		
+	10:  // write reference position
+		// The user might want to avoid writing the position here, if he wants to use the value set in the startup menu
+		IF axis.config.axisNumber = 0 THEN
+			writeRef.address	:= 16#23EE00;
+		ELSE
+			writeRef.address	:= 16#2BEE00; // offset 0x800 for second axis
+		END_IF
+		writeRef(axis:=axis, execute:=TRUE, value:=refPos);
+		IF NOT execute THEN
+			state	:= 999;
+		ELSIF writeRef.done THEN
+			writeRef(axis:=axis, execute:=FALSE);
+			ncHome(Axis:=axisRef, Execute := FALSE);
+			timeout := 0;
+			state	:= state + 10;
+		ELSIF writeRef.error THEN
+			error := TRUE;
+		END_IF
+	
+	20:	// enter homing mode of operation  
+		// NC_Home does not seem to support drive controlled homing
+		// To start drive controlled homing, we change to modeOfOperation 6 and
+		// then we use the fact, that the ControlWord flag 0x10 is already set.
+		// This starts homing in the drive which causes the homing done flag 15 turned off
+		timeout := timeout + 1;
+		ncOpMode.Execute := TRUE;
+		ncOpMode.DriveOperationMode := E_DriveOperationMode.DriveOperationMode_DriveBasedHoming;
+		IF NOT execute THEN
+			state := 999;
+		ELSIF axis.messageId <> 0 THEN
+			error		:= TRUE;
+		ELSIF ncOpMode.Done AND (driveStatus.Value AND 16#8000) = 0 THEN
+			writeReg(axis:=axis, execute := FALSE);
+			state := state + 10;
+		ELSIF timeout>10 THEN 
+			// The modeOfOperation should change within 0.1ms and the homing flag should disappear within another 0.1 ms
+			// Possible causes for this error are: The controlWord 0x10 flag is not set because the NC shows an error
+			error := TRUE;
+		END_IF
+
+	30:	// wait for homing finished
+		IF NOT execute THEN
+			// user commanded an abort
+			// since the axis might be moving, we have to stop homing first
+			writeReg.value		:= 2; // stop homing enum RCTeHoC_Stop
+			IF axis.config.axisNumber = 0 THEN
+				writeReg.address	:= 16#23EC00;
+			ELSE
+				writeReg.address	:= 16#2BEC00; // offset 0x800 for second axis
+			END_IF
+			writeReg(axis:=axis, execute := TRUE);
+			state		:= state + 10;
+		ELSIF axis.messageId <> 0 THEN
+			error		:= TRUE;
+		ELSIF (driveStatus.Value AND 16#8000) = 16#8000 THEN
+			ncReset(Axis:=axisRef, Execute := FALSE);
+			state		:= state + 20;
+		END_IF
+
+	40:	// wait for stop command finished (not the stopping itself)
+		writeReg(axis:=axis, execute := TRUE);
+		IF NOT execute THEN
+			state	:= 999;
+		ELSIF writeReg.done THEN
+			IF writeReg.error THEN
+				error	:= TRUE;
+			ELSE
+				writeReg(axis:=axis, execute := FALSE);
+				state	:= 999;
+			END_IF
+		END_IF
+		
+	50:	// reset the NC to force Setpoint=Actual
+		ncReset(Axis:=axisRef, Execute := TRUE);
+		IF NOT execute THEN
+			state	:= 999;
+		ELSIF ncReset.Error OR axis.messageId<>0 THEN
+			error	:= TRUE;
+		ELSIF ncReset.Done THEN
+			// wait some time for position settle before mode change to CSP (8)
+			ncReset(Axis:=axisRef, Execute := FALSE);
+			ncHome(Axis:=axisRef, Execute := FALSE);
+			state	:= state + 10;
+		END_IF
+		
+	60:	// write homing done to NC. This just sets the homing done bit in the NC
+		ncHome.HomingMode := MC_HomingMode.MC_ForceCalibration;
+		ncHome(Axis:=axisRef, Execute := TRUE);
+		IF NOT execute THEN
+			ncHome(Axis:=axisRef, Execute := FALSE);
+			state	:= 999;
+		ELSIF NOT ncHome.Busy THEN
+			IF ncHome.Error THEN
+				state := 999;
+				error	:= TRUE;
+			ELSE
+				ncHome(Axis:=axisRef, Execute := FALSE);
+				done	:= TRUE;
+				state	:= 999; // homing finished
+			END_IF
+		END_IF
+		
+	999: // homing finished or error handling
+		ncOpMode.Execute := TRUE;
+		ncOpMode.DriveOperationMode := E_DriveOperationMode.DriveOperationMode_Pos1;
+		IF ncOpMode.Error OR ncOpMode.Done AND NOT execute THEN
+			ncOpMode.Execute := FALSE;
+			done := FALSE;
+			state := 0;	
+		END_IF
+
+ELSE
+	state := 0;
+END_CASE
+ncOpMode(axis := axisRef);
+]]></ST>
+    </Implementation>
+    <LineIds Name="DriveControlledHoming">
+      <LineId Id="27" Count="4" />
+      <LineId Id="184" Count="0" />
+      <LineId Id="183" Count="0" />
+      <LineId Id="32" Count="19" />
+      <LineId Id="53" Count="15" />
+      <LineId Id="175" Count="1" />
+      <LineId Id="70" Count="0" />
+      <LineId Id="72" Count="33" />
+      <LineId Id="107" Count="5" />
+      <LineId Id="114" Count="6" />
+      <LineId Id="122" Count="10" />
+      <LineId Id="134" Count="3" />
+      <LineId Id="139" Count="1" />
+      <LineId Id="142" Count="0" />
+      <LineId Id="177" Count="0" />
+      <LineId Id="143" Count="6" />
+      <LineId Id="161" Count="1" />
+      <LineId Id="167" Count="0" />
+      <LineId Id="174" Count="0" />
+      <LineId Id="168" Count="1" />
+      <LineId Id="178" Count="0" />
+      <LineId Id="171" Count="0" />
+      <LineId Id="170" Count="0" />
+      <LineId Id="156" Count="3" />
+      <LineId Id="164" Count="0" />
+      <LineId Id="9" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="MAIN" Id="{30b73f6b-f136-4e91-b9ea-f0ca46d4109d}" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM MAIN
+VAR
+	Axis	: ARRAY [0..1] OF NC_Axis;
+	axisIdx	: UINT;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[(* configuration *)
+Axis[0].config.driveId		:= 1001;				// Drive 1 (TSD)/EtherCAT/EtherCAT-Addr.
+Axis[0].config.netId		:= '192.168.10.99.2.1';	// Drive 1 (TSD)^InfoData^AdsAddr^netId
+Axis[0].config.axisNumber	:= 0;					// first (0) or second (1) axis of a dual axis drive
+Axis[0].config.axisId		:= 0;					// cnc-axis-id used in events
+Axis[0].refPos 				:= 0.14;				// reference position for drive controlled homing
+Axis[1].config.driveId		:= 1001;				// Drive 1 (TSD)/EtherCAT/EtherCAT-Addr.
+Axis[1].config.netId		:= '192.168.10.99.2.1';	// Drive 1 (TSD)^InfoData^AdsAddr^netId
+Axis[1].config.axisNumber	:= 1;					// first (0) or second (1) axis of a dual axis drive
+Axis[1].config.axisId		:= 1;					// cnc-axis-id used in events
+Axis[1].refPos 				:= 0.09;				// reference position for drive controlled homing
+
+(* Axis handler *)
+FOR axisIdx := 0 TO SIZEOF(Axis)/SIZEOF(Axis[0])-1 DO
+	Axis[axisIdx].enable := gEnableAxes;
+	Axis[axisIdx].home := gHoming;
+	Axis[axisIdx]();
+	IF NOT Axis[axisIdx].enabled THEN
+		gStatusAxesEnabled := FALSE;
+	END_IF
+END_FOR]]></ST>
+    </Implementation>
+    <LineIds Name="MAIN">
+      <LineId Id="18" Count="4" />
+      <LineId Id="30" Count="0" />
+      <LineId Id="23" Count="2" />
+      <LineId Id="17" Count="0" />
+      <LineId Id="31" Count="0" />
+      <LineId Id="15" Count="1" />
+      <LineId Id="2" Count="0" />
+      <LineId Id="11" Count="0" />
+      <LineId Id="32" Count="0" />
+      <LineId Id="12" Count="2" />
+      <LineId Id="9" Count="1" />
+    </LineIds>
+  </POU>
+</TcPlcObject>
