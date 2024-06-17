@@ -10,18 +10,19 @@ END_VAR
     <Implementation>
       <ST><![CDATA[(* configuration *)
 Axis[0].config.driveId		:= 1001;				// Drive 1 (TSD)/EtherCAT/EtherCAT-Addr.
-Axis[0].config.netId		:= '192.168.10.99.2.1';	// Drive 1 (TSD)^InfoData^AdsAddr^netId
+Axis[0].config.netId		:= '10.20.34.98.2.1';	// Drive 1 (TSD)^InfoData^AdsAddr^netId
 Axis[0].config.axisNumber	:= 0;					// first (0) or second (1) axis of a dual axis drive
 Axis[0].config.axisId		:= 0;					// cnc-axis-id used in events
 Axis[0].refPos 				:= 0.14;				// reference position for drive controlled homing
 Axis[1].config.driveId		:= 1001;				// Drive 1 (TSD)/EtherCAT/EtherCAT-Addr.
-Axis[1].config.netId		:= '192.168.10.99.2.1';	// Drive 1 (TSD)^InfoData^AdsAddr^netId
+Axis[1].config.netId		:= '10.20.34.98.2.1';	// Drive 1 (TSD)^InfoData^AdsAddr^netId
 Axis[1].config.axisNumber	:= 1;					// first (0) or second (1) axis of a dual axis drive
 Axis[1].config.axisId		:= 1;					// cnc-axis-id used in events
 Axis[1].refPos 				:= 0.09;				// reference position for drive controlled homing
 
 (* Axis handler *)
 FOR axisIdx := 0 TO SIZEOF(Axis)/SIZEOF(Axis[0])-1 DO
+	gStatusAxesEnabled := TRUE;
 	Axis[axisIdx].enable := gEnableAxes;
 	Axis[axisIdx].home := gHoming;
 	Axis[axisIdx]();
@@ -38,6 +39,7 @@ END_FOR]]></ST>
       <LineId Id="31" Count="0" />
       <LineId Id="15" Count="1" />
       <LineId Id="2" Count="0" />
+      <LineId Id="38" Count="0" />
       <LineId Id="11" Count="0" />
       <LineId Id="32" Count="0" />
       <LineId Id="12" Count="2" />

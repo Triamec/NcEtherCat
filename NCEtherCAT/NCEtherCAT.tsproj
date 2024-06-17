@@ -1432,15 +1432,6 @@ External Setpoint Generation:
 				<Elements>1</Elements>
 			</ArrayInfo>
 		</DataType>
-		<DataType>
-			<Name GUID="{18071995-0000-0000-0000-002000000010}" IecBaseType="true" AutoDeleteType="true" HideSubItems="true">ARRAY [0..1] OF BYTE</Name>
-			<BitSize>16</BitSize>
-			<BaseType GUID="{18071995-0000-0000-0000-000000000001}">BYTE</BaseType>
-			<ArrayInfo>
-				<LBound>0</LBound>
-				<Elements>2</Elements>
-			</ArrayInfo>
-		</DataType>
 	</DataTypes>
 	<ImageDatas>
 		<ImageData Id="1000">424dd6020000000000003600000028000000100000000e0000000100180000000000a0020000c40e0000c40e00000000000000000000ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ff808080808080808080808080808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ff000000ff00ffff00ffff00ffc0c0c0c0c0c0c0c0c0c0c0c08080800000ff000000000000000000000000000000000000000000ff00ffff00ffff00ffc0c0c0c0c0c0c0c0c0c0c0c08080800000ff0000000000000000000000000000000000000000000000ff0000ffff00ffc0c0c0c0c0c0ff0000c0c0c08080800000ff000000000000000000000000000000000000000000ff00ffff00ffff00ffc0c0c0ff0000ff0000ff00008080800000ffff00ffff00ffff00ff000000ff00ffff00ff000000ff00ffff00ffff00ffc0c0c0c0c0c0ff0000c0c0c0808080000000000000000000000000000000ff00ffff00ffff00ffff00ffff00ffff00ffc0c0c0c0c0c0ff0000c0c0c0808080000000ff00ffff00ffff00ffff00ffff00ffff00ff000000ff00ffff00ffff00ffc0c0c0c0c0c0ff0000c0c0c0808080000000000000000000000000000000000000000000000000ff00ffff00ffff00ffc0c0c0c0c0c0ff0000c0c0c08080800000000000000000000000000000000000000000000000000000ff0000ffff00ffc0c0c0c0c0c0ff0000c0c0c0808080000000000000000000000000000000000000000000000000ff00ffff00ffff00ffc0c0c0c0c0c0ff0000c0c0c0808080000000ff00ffff00ffff00ff000000ff00ffff00ff000000ff00ffff00ffff00ffc0c0c0c0c0c0ff0000c0c0c0808080000000000000000000000000000000ff00ffff00ffff00ffff00ffff00ffff00ffc0c0c0c0c0c0c0c0c0c0c0c0808080000000ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffc0c0c0c0c0c0c0c0c0c0c0c0808080</ImageData>
@@ -1755,7 +1746,7 @@ External Setpoint Generation:
 		</Motion>
 		<Plc>
 			<Project GUID="{73FF1DC5-8F4C-40F1-A818-6D9A45CA6C80}" Name="PLC" PrjFilePath="PLC\PLC.plcproj" TmcFilePath="PLC\PLC.tmc" ReloadTmc="true" AmsPort="851" FileArchiveSettings="#x000e" SymbolicMapping="true">
-				<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2" TmcHash="{E4E19180-D918-0C15-FA29-72D33EDE418A}">
+				<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2" TmcHash="{BA24341D-5E34-4FCF-8B8E-F888756C320D}">
 					<Name>PLC Instance</Name>
 					<CLSID ClassFactory="TcPlc30">{08500001-0000-0000-F000-000000000064}</CLSID>
 					<Vars VarGrpType="1">
@@ -1826,8 +1817,8 @@ External Setpoint Generation:
 					<EtherCAT SlaveType="2" PdiType="#x0c80" MboxDataLinkLayer="true" StateMBoxPolling="true" CycleMBoxPollingTime="0" CoeType="15" VendorId="#x0000abba" ProductCode="#x00000171" RevisionNo="#x00000004" InfoDataAddr="true" InfoDataSoeDS401="true" InfoDataDcTimes="true" TimeoutStateChange1="2000" TimeoutStateChange2="9000" TimeoutMailbox2="2000" PortPhys="17" IdentificationAdo="308" DownloadSlotCfgIP="true" MaxSlotCount="24" MaxSlotGroupCount="5" Type="TSD_minFW4.22" Desc="TSD" PortABoxInfo="#x00ffffff">
 						<SyncMan>001080002600010001000000220080008000001026010000</SyncMan>
 						<SyncMan>801080002200010002000000220080008000801022010000</SyncMan>
-						<SyncMan>001120006400010003000000000000002000001164010000</SyncMan>
-						<SyncMan>001430002000010004000000000000003000001420010000</SyncMan>
+						<SyncMan>001118006400010003000000000000002000001164010000</SyncMan>
+						<SyncMan>001428002000010004000000000000003000001420010000</SyncMan>
 						<Fmmu>0000000000000000001100020100000001000000000000000000000000000000</Fmmu>
 						<Fmmu>0000000000000000001400010100000002000000000000000000000000000000</Fmmu>
 						<Fmmu>00000000000000000d0800010100000003000000000000000000000000000000</Fmmu>
@@ -1836,6 +1827,8 @@ External Setpoint Generation:
 						<DcMode>4443000000000000000000000000000044432d53796e6368726f6e000000000000000000000000000000000000000000000000000000000000000000000000030100000000000000000000000000000000000000000000000000000000000000</DcMode>
 						<MBoxUserCmdData>100003000c0000000c0000000300000000000000000000000000000000000000209260010400000040420f00537562496e6465782030303100</MBoxUserCmdData>
 						<MBoxUserCmdData>100003000c0000000c0000000300000000000000000000000000000000000000209268010400000040420f00537562496e6465782030303100</MBoxUserCmdData>
+						<MBoxUserCmdData>020003001000000012000000030000000000000000000000000000000000000020ee2300080000007b14ae47e17a843f5265666572656e636520506f736974696f6e00</MBoxUserCmdData>
+						<MBoxUserCmdData>020003001000000012000000030000000000000000000000000000000000000020ee2b00080000007b14ae47e17a943f5265666572656e636520506f736974696f6e00</MBoxUserCmdData>
 						<Pdo Name="MainInputs" Index="#x1a06" Flags="#x0490" SyncMan="3">
 							<Entry Name="Status Word" Index="#x6041" Flags="#x00002000">
 								<Type>UINT</Type>
@@ -1886,9 +1879,9 @@ External Setpoint Generation:
 								<Type>SINT</Type>
 								<Comment><![CDATA[object 0x6060:0]]></Comment>
 							</Entry>
-							<Entry Name="Auxiliary Byte" Index="#x60fd" Flags="#x00002000">
+							<Entry Name="Auxiliary Byte" Index="#x2098" Flags="#x00002000">
 								<Type>USINT</Type>
-								<Comment><![CDATA[object 0x60FD:0, mapped to Axes[..]/Commands/General/ExternalInput]]></Comment>
+								<Comment><![CDATA[object 0x2098:0, mapped to Axes[..]/Commands/General/ExternalInput]]></Comment>
 							</Entry>
 						</Pdo>
 						<Pdo Name="PositionInputs" Index="#x1a07" Flags="#x0490" SyncMan="3">
@@ -1913,24 +1906,6 @@ External Setpoint Generation:
 							<Entry Name="TargetVelocity" Index="#x60ff" Flags="#x00002000">
 								<Type>DINT</Type>
 								<Comment><![CDATA[object 0x60FF:0]]></Comment>
-							</Entry>
-						</Pdo>
-						<Pdo Name="TorqueInputs" Index="#x1a09" Flags="#x0490" SyncMan="3">
-							<Entry Name="TorqueActual" Index="#x6077" Flags="#x00002000">
-								<Type>INT</Type>
-								<Comment><![CDATA[object 0x6077:0]]></Comment>
-							</Entry>
-							<Entry>
-								<Type GUID="{18071995-0000-0000-0000-002000000010}">ARRAY [0..1] OF BYTE</Type>
-							</Entry>
-						</Pdo>
-						<Pdo Name="TorqueOutputs" Index="#x1609" InOut="1" Flags="#x0490" SyncMan="2">
-							<Entry Name="TargetTorque" Index="#x6071" Flags="#x00002000">
-								<Type>INT</Type>
-								<Comment><![CDATA[object 0x6071:0]]></Comment>
-							</Entry>
-							<Entry>
-								<Type GUID="{18071995-0000-0000-0000-002000000010}">ARRAY [0..1] OF BYTE</Type>
 							</Entry>
 						</Pdo>
 						<Pdo Name="Diagnostic / Digital Inputs" Index="#x1a0a" Flags="#x0490" SyncMan="3">
@@ -1993,9 +1968,9 @@ External Setpoint Generation:
 								<Type>SINT</Type>
 								<Comment><![CDATA[object 0x6060:0]]></Comment>
 							</Entry>
-							<Entry Name="Auxiliary Byte" Index="#x68fd" Flags="#x00002000">
+							<Entry Name="Auxiliary Byte" Index="#x2898" Flags="#x00002000">
 								<Type>USINT</Type>
-								<Comment><![CDATA[object 0x60FD:0, mapped to Axes[..]/Commands/General/ExternalInput]]></Comment>
+								<Comment><![CDATA[object 0x2098:0, mapped to Axes[..]/Commands/General/ExternalInput]]></Comment>
 							</Entry>
 						</Pdo>
 						<Pdo Name="PositionInputs" Index="#x1a17" Flags="#x0490" SyncMan="3">
@@ -2020,24 +1995,6 @@ External Setpoint Generation:
 							<Entry Name="TargetVelocity" Index="#x68ff" Flags="#x00002000">
 								<Type>DINT</Type>
 								<Comment><![CDATA[object 0x60FF:0]]></Comment>
-							</Entry>
-						</Pdo>
-						<Pdo Name="TorqueInputs" Index="#x1a19" Flags="#x0490" SyncMan="3">
-							<Entry Name="TorqueActual" Index="#x6877" Flags="#x00002000">
-								<Type>INT</Type>
-								<Comment><![CDATA[object 0x6077:0]]></Comment>
-							</Entry>
-							<Entry>
-								<Type GUID="{18071995-0000-0000-0000-002000000010}">ARRAY [0..1] OF BYTE</Type>
-							</Entry>
-						</Pdo>
-						<Pdo Name="TorqueOutputs" Index="#x1619" InOut="1" Flags="#x0490" SyncMan="2">
-							<Entry Name="TargetTorque" Index="#x6871" Flags="#x00002000">
-								<Type>INT</Type>
-								<Comment><![CDATA[object 0x6071:0]]></Comment>
-							</Entry>
-							<Entry>
-								<Type GUID="{18071995-0000-0000-0000-002000000010}">ARRAY [0..1] OF BYTE</Type>
 							</Entry>
 						</Pdo>
 						<Pdo Name="Diagnostic / Digital Inputs" Index="#x1a1a" Flags="#x0490" SyncMan="3">
@@ -2088,18 +2045,11 @@ External Setpoint Generation:
 						<Slot Name="Torque">
 							<SlotData>0000000001000600000010000800000800000000000000000000000000000000</SlotData>
 							<ModuleIdent>5347331</ModuleIdent>
-							<Module Id="#x03090004" Type="Torque" Class="">
-								<Name>Axis 0</Name>
-								<ImageId>405</ImageId>
-								<ModuleData>baab000003985100000004000000000000000000000000000000000000000000</ModuleData>
-								<PdoIndex>6665</PdoIndex>
-								<PdoIndex>5641</PdoIndex>
-							</Module>
 						</Slot>
 						<Slot Name="Diagnostic / IO">
 							<SlotData>0000000001000600000010000800000800000000000000000000000000000000</SlotData>
 							<ModuleIdent>5347332</ModuleIdent>
-							<Module Id="#x03090005" Type="Diagnostic / DigitalInputs" Class="">
+							<Module Id="#x03090004" Type="Diagnostic / DigitalInputs" Class="">
 								<Name>Axis 0</Name>
 								<ImageId>405</ImageId>
 								<ModuleData>baab000004985100000004000000000000000000000000000000000000000000</ModuleData>
@@ -2113,7 +2063,7 @@ External Setpoint Generation:
 						<Slot Name="Main Control">
 							<SlotData>0100010001000600000010000800000800000000000000000000000000000000</SlotData>
 							<ModuleIdent>5347328</ModuleIdent>
-							<Module Id="#x03090006" Type="MainControl" Class="">
+							<Module Id="#x03090005" Type="MainControl" Class="">
 								<Name>Axis 1</Name>
 								<ImageId>405</ImageId>
 								<ModuleData>baab000000985100000004000000000000000000000000000000000000000000</ModuleData>
@@ -2124,7 +2074,7 @@ External Setpoint Generation:
 						<Slot Name="Position">
 							<SlotData>0100000001000600000010000800000800000000000000000000000000000000</SlotData>
 							<ModuleIdent>5347329</ModuleIdent>
-							<Module Id="#x03090007" Type="Position" Class="">
+							<Module Id="#x03090006" Type="Position" Class="">
 								<Name>Axis 1</Name>
 								<ImageId>405</ImageId>
 								<ModuleData>baab000001985100000004000000000000000000000000000000000000000000</ModuleData>
@@ -2135,7 +2085,7 @@ External Setpoint Generation:
 						<Slot Name="Velocity">
 							<SlotData>0100000001000600000010000800000800000000000000000000000000000000</SlotData>
 							<ModuleIdent>5347330</ModuleIdent>
-							<Module Id="#x03090008" Type="Velocity" Class="">
+							<Module Id="#x03090007" Type="Velocity" Class="">
 								<Name>Axis 1</Name>
 								<ImageId>405</ImageId>
 								<ModuleData>baab000002985100000004000000000000000000000000000000000000000000</ModuleData>
@@ -2146,18 +2096,11 @@ External Setpoint Generation:
 						<Slot Name="Torque">
 							<SlotData>0100000001000600000010000800000800000000000000000000000000000000</SlotData>
 							<ModuleIdent>5347331</ModuleIdent>
-							<Module Id="#x03090009" Type="Torque" Class="">
-								<Name>Axis 1</Name>
-								<ImageId>405</ImageId>
-								<ModuleData>baab000003985100000004000000000000000000000000000000000000000000</ModuleData>
-								<PdoIndex>6681</PdoIndex>
-								<PdoIndex>5657</PdoIndex>
-							</Module>
 						</Slot>
 						<Slot Name="Diagnostic / Digital Inputs">
 							<SlotData>0100000001000600000010000800000800000000000000000000000000000000</SlotData>
 							<ModuleIdent>5347332</ModuleIdent>
-							<Module Id="#x0309000a" Type="Diagnostic / DigitalInputs" Class="">
+							<Module Id="#x03090008" Type="Diagnostic / DigitalInputs" Class="">
 								<Name>Axis 1</Name>
 								<ImageId>405</ImageId>
 								<ModuleData>baab000004985100000004000000000000000000000000000000000000000000</ModuleData>
@@ -2196,22 +2139,22 @@ External Setpoint Generation:
 							<ModuleIdent>10552320</ModuleIdent>
 							<ModuleIdent>10552576</ModuleIdent>
 						</Slot>
-						<SlotGroupData Name="Axis 0">
+						<SlotGroupData Name="Axis 0" ImageId="1000">
 							<SlotGroup>0</SlotGroup>
 						</SlotGroupData>
-						<SlotGroupData Name="Axis 1">
+						<SlotGroupData Name="Axis 1" ImageId="1000">
 							<SlotGroup>1</SlotGroup>
 						</SlotGroupData>
-						<SlotGroupData Name="Extension 0">
+						<SlotGroupData Name="Extension 0" ImageId="1000">
 							<SlotGroup>2</SlotGroup>
 						</SlotGroupData>
-						<SlotGroupData Name="Extension 1">
+						<SlotGroupData Name="Extension 1" ImageId="1000">
 							<SlotGroup>3</SlotGroup>
 						</SlotGroupData>
-						<SlotGroupData Name="Extension 2">
+						<SlotGroupData Name="Extension 2" ImageId="1000">
 							<SlotGroup>4</SlotGroup>
 						</SlotGroupData>
-						<SlotGroupData Name="Extension 3">
+						<SlotGroupData Name="Extension 3" ImageId="1000">
 							<SlotGroup>5</SlotGroup>
 						</SlotGroupData>
 					</EtherCAT>
@@ -2227,7 +2170,6 @@ External Setpoint Generation:
 		<OwnerA Name="TINC^NC-Task 1 SAF^Axes^Axis 1">
 			<OwnerB Name="TIID^Device 1 (EtherCAT)^Drive 1 (TSD)">
 				<Link VarA="Drive^Inputs^In^nDataIn1" VarB="Axis 0^PositionInputs^PositionError"/>
-				<Link VarA="Drive^Inputs^In^nDataIn3[0]" VarB="Axis 0^TorqueInputs^TorqueActual"/>
 				<Link VarA="Drive^Inputs^In^nDcOutputTime" VarB="InfoData^DcOutputShift"/>
 				<Link VarA="Drive^Inputs^In^nState1" VarB="Axis 0^MainInputs^Status Word"/>
 				<Link VarA="Drive^Inputs^In^nState2" VarB="Axis 0^MainInputs^Status Word" Size="8" OffsB="8"/>
@@ -2239,7 +2181,6 @@ External Setpoint Generation:
 				<Link VarA="Drive^Outputs^Out^nCtrl5" VarB="Axis 0^MainOutputs^Mode of Operation"/>
 				<Link VarA="Drive^Outputs^Out^nDataOut1" VarB="Axis 0^PositionOutputs^TargetPosition"/>
 				<Link VarA="Drive^Outputs^Out^nDataOut2" VarB="Axis 0^VelocityOutputs^TargetVelocity"/>
-				<Link VarA="Drive^Outputs^Out^nDataOut4[0]" VarB="Axis 0^TorqueOutputs^TargetTorque"/>
 				<Link VarA="Enc^Inputs^In^nDataIn1" VarB="Axis 0^MainInputs^ActualPosition"/>
 				<Link VarA="Enc^Inputs^In^nDataIn7" VarB="Axis 0^VelocityInputs^ActualVelocity"/>
 				<Link VarA="Enc^Inputs^In^nDcInputTime" VarB="InfoData^DcInputShift"/>
@@ -2250,7 +2191,6 @@ External Setpoint Generation:
 		<OwnerA Name="TINC^NC-Task 1 SAF^Axes^Axis 2">
 			<OwnerB Name="TIID^Device 1 (EtherCAT)^Drive 1 (TSD)">
 				<Link VarA="Drive^Inputs^In^nDataIn1" VarB="Axis 1^PositionInputs^PositionError"/>
-				<Link VarA="Drive^Inputs^In^nDataIn3[0]" VarB="Axis 1^TorqueInputs^TorqueActual"/>
 				<Link VarA="Drive^Inputs^In^nDcOutputTime" VarB="InfoData^DcOutputShift"/>
 				<Link VarA="Drive^Inputs^In^nState1" VarB="Axis 1^MainInputs^Status Word"/>
 				<Link VarA="Drive^Inputs^In^nState2" VarB="Axis 1^MainInputs^Status Word" Size="8" OffsB="8"/>
@@ -2262,7 +2202,6 @@ External Setpoint Generation:
 				<Link VarA="Drive^Outputs^Out^nCtrl5" VarB="Axis 1^MainOutputs^Mode of Operation"/>
 				<Link VarA="Drive^Outputs^Out^nDataOut1" VarB="Axis 1^PositionOutputs^TargetPosition"/>
 				<Link VarA="Drive^Outputs^Out^nDataOut2" VarB="Axis 1^VelocityOutputs^TargetVelocity"/>
-				<Link VarA="Drive^Outputs^Out^nDataOut4[0]" VarB="Axis 1^TorqueOutputs^TargetTorque"/>
 				<Link VarA="Enc^Inputs^In^nDataIn1" VarB="Axis 1^MainInputs^ActualPosition"/>
 				<Link VarA="Enc^Inputs^In^nDataIn7" VarB="Axis 1^VelocityInputs^ActualVelocity"/>
 				<Link VarA="Enc^Inputs^In^nDcInputTime" VarB="InfoData^DcInputShift"/>
