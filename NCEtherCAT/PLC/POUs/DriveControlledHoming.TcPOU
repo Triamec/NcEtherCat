@@ -15,12 +15,14 @@ VAR_OUTPUT
 	done		: BOOL;
 END_VAR
 VAR
+	statusWord	AT %I*	: UINT;
+	modeOfOperation			AT %Q*	: SINT;
+	modeOfOperationDisplay	AT %I*	: SINT;
+	
 	writeReg	: TE_RegisterWriteInt32;
-	ncOpMode	: MC_WriteDriveOperationMode;
 	ncHome		: MC_Home;
 	ncReset		: MC_Reset;
 	writeRef	: TE_RegisterWriteFloat64;
-	driveStatus : NCTOPLC_AXIS_REF_STATE2;
 	timeout     : INT := 0;
 	state		: INT := 0;
 END_VAR
@@ -32,12 +34,11 @@ END_VAR
 // Use the standard mode of operation HM=6 of the EtherCAT CoE standard
 // or the following sample code, which overcomes NC position reset after homing
 
-driveStatus := axisRef.NcToPlc.StateDWord2;
-
 CASE state OF
 	0:  // Idle
 		done	:= FALSE;
 		error	:= FALSE;
+		modeOfOperation := 8;
 		IF execute THEN
 			writeRef(axis:=axis, execute := FALSE);
 			timeout := 0;
@@ -53,7 +54,8 @@ CASE state OF
 		END_IF
 		writeRef(axis:=axis, execute:=TRUE, value:=refPos);
 		IF NOT execute THEN
-			state	:= 999;
+			modeOfOperation := 8;
+			state := 0;
 		ELSIF writeRef.done THEN
 			writeRef(axis:=axis, execute:=FALSE);
 			ncHome(Axis:=axisRef, Execute := FALSE);
@@ -69,13 +71,13 @@ CASE state OF
 		// then we use the fact, that the ControlWord flag 0x10 is already set.
 		// This starts homing in the drive which causes the homing done flag 15 turned off
 		timeout := timeout + 1;
-		ncOpMode.Execute := TRUE;
-		ncOpMode.DriveOperationMode := E_DriveOperationMode.DriveOperationMode_DriveBasedHoming;
+		modeOfOperation := 6;
 		IF NOT execute THEN
-			state := 999;
+			modeOfOperation := 8;
+			state := 0;
 		ELSIF axis.messageId <> 0 THEN
 			error		:= TRUE;
-		ELSIF ncOpMode.Done AND (driveStatus.Value AND 16#8000) = 0 THEN
+		ELSIF modeOfOperationDisplay = 6 THEN
 			writeReg(axis:=axis, execute := FALSE);
 			state := state + 10;
 		ELSIF timeout>10 THEN 
@@ -98,7 +100,7 @@ CASE state OF
 			state		:= state + 10;
 		ELSIF axis.messageId <> 0 THEN
 			error		:= TRUE;
-		ELSIF (driveStatus.Value AND 16#8000) = 16#8000 THEN
+		ELSIF statusWord.12 AND statusWord.10 THEN // homing completed successfully
 			ncReset(Axis:=axisRef, Execute := FALSE);
 			state		:= state + 20;
 		END_IF
@@ -106,20 +108,23 @@ CASE state OF
 	40:	// wait for stop command finished (not the stopping itself)
 		writeReg(axis:=axis, execute := TRUE);
 		IF NOT execute THEN
-			state	:= 999;
+			modeOfOperation := 8;
+			state	:= 0;
 		ELSIF writeReg.done THEN
 			IF writeReg.error THEN
 				error	:= TRUE;
 			ELSE
 				writeReg(axis:=axis, execute := FALSE);
-				state	:= 999;
+				modeOfOperation := 8;
+				state	:= 0;
 			END_IF
 		END_IF
 		
 	50:	// reset the NC to force Setpoint=Actual
 		ncReset(Axis:=axisRef, Execute := TRUE);
 		IF NOT execute THEN
-			state	:= 999;
+			modeOfOperation := 8;
+			state	:= 0;
 		ELSIF ncReset.Error OR axis.messageId<>0 THEN
 			error	:= TRUE;
 		ELSIF ncReset.Done THEN
@@ -134,10 +139,11 @@ CASE state OF
 		ncHome(Axis:=axisRef, Execute := TRUE);
 		IF NOT execute THEN
 			ncHome(Axis:=axisRef, Execute := FALSE);
-			state	:= 999;
+			modeOfOperation := 8;
+			state	:= 0;
 		ELSIF NOT ncHome.Busy THEN
+			modeOfOperation := 8;
 			IF ncHome.Error THEN
-				state := 999;
 				error	:= TRUE;
 			ELSE
 				ncHome(Axis:=axisRef, Execute := FALSE);
@@ -147,46 +153,47 @@ CASE state OF
 		END_IF
 		
 	999: // homing finished or error handling
-		ncOpMode.Execute := TRUE;
-		ncOpMode.DriveOperationMode := E_DriveOperationMode.DriveOperationMode_Pos1;
-		IF ncOpMode.Error OR ncOpMode.Done AND NOT execute THEN
-			ncOpMode.Execute := FALSE;
+		IF NOT execute THEN
 			done := FALSE;
 			state := 0;	
 		END_IF
-
 ELSE
 	state := 0;
 END_CASE
-ncOpMode(axis := axisRef);
 ]]></ST>
     </Implementation>
     <LineIds Name="DriveControlledHoming">
-      <LineId Id="27" Count="4" />
-      <LineId Id="184" Count="0" />
-      <LineId Id="183" Count="0" />
-      <LineId Id="32" Count="19" />
-      <LineId Id="53" Count="15" />
-      <LineId Id="175" Count="1" />
+      <LineId Id="27" Count="9" />
+      <LineId Id="220" Count="0" />
+      <LineId Id="37" Count="14" />
+      <LineId Id="53" Count="0" />
+      <LineId Id="214" Count="0" />
+      <LineId Id="54" Count="14" />
+      <LineId Id="176" Count="0" />
       <LineId Id="70" Count="0" />
+      <LineId Id="209" Count="0" />
       <LineId Id="72" Count="33" />
-      <LineId Id="107" Count="5" />
-      <LineId Id="114" Count="6" />
-      <LineId Id="122" Count="10" />
+      <LineId Id="107" Count="0" />
+      <LineId Id="215" Count="0" />
+      <LineId Id="108" Count="4" />
+      <LineId Id="114" Count="0" />
+      <LineId Id="216" Count="0" />
+      <LineId Id="115" Count="5" />
+      <LineId Id="122" Count="0" />
+      <LineId Id="217" Count="0" />
+      <LineId Id="123" Count="9" />
       <LineId Id="134" Count="3" />
-      <LineId Id="139" Count="1" />
-      <LineId Id="142" Count="0" />
-      <LineId Id="177" Count="0" />
-      <LineId Id="143" Count="6" />
+      <LineId Id="139" Count="0" />
+      <LineId Id="218" Count="0" />
+      <LineId Id="140" Count="0" />
+      <LineId Id="219" Count="0" />
+      <LineId Id="142" Count="7" />
       <LineId Id="161" Count="1" />
-      <LineId Id="167" Count="0" />
-      <LineId Id="174" Count="0" />
-      <LineId Id="168" Count="1" />
+      <LineId Id="168" Count="0" />
       <LineId Id="178" Count="0" />
       <LineId Id="171" Count="0" />
       <LineId Id="170" Count="0" />
-      <LineId Id="156" Count="3" />
-      <LineId Id="164" Count="0" />
+      <LineId Id="157" Count="2" />
       <LineId Id="9" Count="0" />
     </LineIds>
   </POU>
