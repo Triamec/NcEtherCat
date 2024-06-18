@@ -15,7 +15,7 @@ The following prerequisites have to be met using this example code.
 - A TwinCAT 3 runtime system (3.1.4024 or newer) with an EtherCAT-Master.
 - *Triamec EtherCAT Lib* 2.1.0 or newer installed. Available as download from [triamec.com](https://www.triamec.com/en/ethercat.html).
 - Drive commissioned. Checkout the *Servo Drive Setup Guide* from the [documents](https://www.triamec.com/en/documents.html) page.
-- Drive controlled homing configured. Checkout *AN141* from the [documents](https://www.triamec.com/en/documents.html) page.
+- Drive controlled homing configured on the drive (*Axes[0]/Parameters/Homing*). Checkout *AN141* from the [documents](https://www.triamec.com/en/documents.html) page.
 - All drives must be powered and connected to the EtherCAT-Master.
 
 ## EtherCAT-Master Adapter
@@ -46,4 +46,18 @@ The following global variables have been defined to control and monitor the axes
 
 The function block extends *TE_AxisBase0* available in the *Triamec EtherCAT Lib* by the NC specific interfaces. It makes use of TwinCAT motion control PLC library function blocks (MC_Power / MC_Reset) to control the axis
 The **NC_Axis** contains an instance of **DriveControlledHoming** function block, which allows to execute the *drive controlled homing*.
+
+## Test the Example
+
+- **Save** and **Rebuild** the Solution.
+- **Activate** the configuration and set TwinCAT to *Run Mode*.
+- **Login** and **Start** the PLC.
+- Open *Triamec_GVL* and enable the axes by setting **gEnableAxes** to **TRUE**, check **gStatusAxesEnabled** if all axes are enabled.
+
+### Ready to move the axes
+
+You should now be able to control the axes over NC Axis GUI (Online GUI).
+The buttons **-- F1**, **- F2**, **+ F3** and **++ F4** are in the **MOTION > NC-Task 1 SAF > Axes > Axis N > Online** dialog.
+
+![Online Dialog](./doc/OnlineDialog.png)
 
