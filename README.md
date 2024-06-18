@@ -35,8 +35,9 @@ Make sure to use an isolated core on the TwinCAT PC. As each PC is different, en
 
 The following global variables have been defined to control and monitor the *Tria-Link* bus and axes.
 
-| Variable              | Description                                |
-| --------------------- | ------------------------------------------ |
-| `gEnableAxes`         | variable to enable all axes                |
-| `gStatusAxesEnabled`  | variable indicates that all axes enabled   |
+| Variable              | Description                                 |
+| --------------------- | ------------------------------------------- |
+| `gEnableAxes`         | variable to enable all axes                 |
+| `gStatusAxesEnabled`  | variable indicates that all axes enabled    |
+| `gHoming`             | variable to execute drive controlled homing |
 
