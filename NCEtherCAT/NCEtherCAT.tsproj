@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<TcSmProject xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.beckhoff.com/schemas/2012/07/TcSmProject" TcSmVersion="1.0" TcVersion="3.1.4024.42">
+<TcSmProject xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.beckhoff.com/schemas/2012/07/TcSmProject" TcSmVersion="1.0" TcVersion="3.1.4024.56">
 	<DataTypes>
 		<DataType>
 			<Name GUID="{18071995-0000-0000-0000-000000000035}" TcBaseType="true" HideType="true">UINTARR2</Name>
@@ -1746,7 +1746,7 @@ External Setpoint Generation:
 		</Motion>
 		<Plc>
 			<Project GUID="{73FF1DC5-8F4C-40F1-A818-6D9A45CA6C80}" Name="PLC" PrjFilePath="PLC\PLC.plcproj" TmcFilePath="PLC\PLC.tmc" ReloadTmc="true" AmsPort="851" FileArchiveSettings="#x000e" SymbolicMapping="true">
-				<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2" TmcHash="{AEDCD699-74A2-D064-27EA-5F0E9F024D93}">
+				<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2" TmcHash="{7DD7FAC3-0EF2-FCC2-9DDC-71B3B9FF48A4}">
 					<Name>PLC Instance</Name>
 					<CLSID ClassFactory="TcPlc30">{08500001-0000-0000-F000-000000000064}</CLSID>
 					<Vars VarGrpType="1">
@@ -1807,7 +1807,7 @@ External Setpoint Generation:
 					</Vars>
 					<Contexts>
 						<Context>
-							<Id NeedCalleeCall="true">0</Id>
+							<Id>0</Id>
 							<Name>PlcTask</Name>
 							<ManualConfig>
 								<OTCID>#x02010050</OTCID>
@@ -1828,8 +1828,8 @@ External Setpoint Generation:
 				<AddressInfo>
 					<Pnp>
 						<DeviceDesc>EtherCAT (TwinCAT-Intel PCI Ethernet Adapter (Gigab</DeviceDesc>
-						<DeviceName>\DEVICE\{F32FF92F-29A0-4807-ABAE-02E4C694972E}</DeviceName>
-						<DeviceData>6805ca46b10f</DeviceData>
+						<DeviceName>\DEVICE\{6BE1AABE-1F3B-4006-A06C-7D0097CC6CF5}</DeviceName>
+						<DeviceData>6805ca946d28</DeviceData>
 					</Pnp>
 				</AddressInfo>
 				<Image Id="1" AddrType="9" ImageType="3">
