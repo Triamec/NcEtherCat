@@ -65,7 +65,9 @@ The buttons **-- F1**, **- F2**, **+ F3** and **++ F4** are in the **MOTION > NC
 While axes are enabled, **gEnableAxes** and **gStatusAxesEnabled** are **TRUE**, start the drive controlled homing by setting **gHoming** to **TRUE**. The configured homing will start. An successful homing will be indicated by the **NC_Axis.referenced** output.
 
 > [!NOTE]
-> For drive controlled homing, the following two EtherCAT signals are mapped to the I/O variables of **DriveControlledHoming** function block:
+> For drive controlled homing, the following two EtherCAT signals are mapped
+> to the I/O variables of **DriveControlledHoming** function block:
+> 
 > I/O MainOutputs/Mode of Operation --> MAIN.Axis[].drvHoming.modeOfOperation
 > I/O MainInputs/Status Word --> MAIN.Axis[].drvHoming.statusWord (and to NC Axis)
 
