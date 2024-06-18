@@ -68,7 +68,7 @@ While axes are enabled, **gEnableAxes** and **gStatusAxesEnabled** are **TRUE**,
 > For drive controlled homing, the following two EtherCAT signals are mapped
 > to the I/O variables of **DriveControlledHoming** function block:
 > 
-> I/O MainOutputs/Mode of Operation --> MAIN.Axis[].drvHoming.modeOfOperation
+> I/O MainOutputs/**Mode of Operation** --> MAIN.Axis[].drvHoming.modeOfOperation
 > 
-> I/O MainInputs/Status Word --> MAIN.Axis[].drvHoming.statusWord (and to NC Axis)
+> I/O MainInputs/**Status Word** --> MAIN.Axis[].drvHoming.statusWord (and to NC Axis)
 
