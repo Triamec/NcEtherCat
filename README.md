@@ -61,3 +61,6 @@ The buttons **-- F1**, **- F2**, **+ F3** and **++ F4** are in the **MOTION > NC
 
 ![Online Dialog](./doc/OnlineDialog.png)
 
+### Drive controlled homing
+While axes are enabled, **gEnableAxes** and **gStatusAxesEnabled** are **TRUE**, start the drive controlled homing by setting **gHoming** to **TRUE**. The configured homing will start. An successful homing will be indicated by the **NC_Axis.referenced** output.
+
