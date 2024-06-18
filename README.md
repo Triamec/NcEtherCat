@@ -15,6 +15,7 @@ The following prerequisites have to be met using this example code.
 - A TwinCAT 3 runtime system (3.1.4024 or newer) with an EtherCAT-Master.
 - *Triamec EtherCAT Lib* 2.1.0 or newer installed. Available as download from [triamec.com](https://www.triamec.com/en/ethercat.html).
 - Drive commissioned. Checkout the *Servo Drive Setup Guide* from the [documents](https://www.triamec.com/en/documents.html) page.
+- Drive controlled homing configured. Checkout *AN141* from the [documents](https://www.triamec.com/en/documents.html) page.
 - All drives must be powered and connected to the EtherCAT-Master.
 
 ## EtherCAT-Master Adapter
@@ -40,4 +41,9 @@ The following global variables have been defined to control and monitor the axes
 | `gEnableAxes`         | variable to enable all axes                 |
 | `gStatusAxesEnabled`  | variable indicates that all axes enabled    |
 | `gHoming`             | variable to execute drive controlled homing |
+
+## NC Axis Function Block (NC_Axis)
+
+The function block extends *TE_AxisBase0* available in the *Triamec EtherCAT Lib* by the NC specific interfaces. It makes use of TwinCAT motion control PLC library function blocks (MC_Power / MC_Reset) to control the axis
+The **NC_Axis** contains an instance of **DriveControlledHoming** function block, which allows to execute the *drive controlled homing*.
 
